@@ -370,4 +370,179 @@ function initSessionTimeoutWarning() {
                 <i class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-3"></i>
                 <div>
                     <h4 class="font-semibold text-yellow-800">Session Expiring Soon</h4>
-                    <p class="text-yellow-700 text-sm mt-1">Your session will expire in ${minutesLeft} minutes. Do you want
+                    <p class="text-yellow-700 text-sm mt-1">Your session will expire in ${minutesLeft} minutes. Do you want to extend it?</p>
+                    <div class="flex gap-2 mt-3">
+                        <button class="btn btn-sm btn-primary extend-session">Extend Session</button>
+                        <button class="btn btn-sm btn-outline ignore-warning">Ignore</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(warning);
+        
+        // Add event listeners
+        warning.querySelector('.extend-session').addEventListener('click', extendSession);
+        warning.querySelector('.ignore-warning').addEventListener('click', () => warning.remove());
+    }
+    
+    function extendSession() {
+        const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user'));
+        
+        if (user) {
+            user.sessionExpires = Date.now() + AUTH_CONFIG.SESSION_TIMEOUT;
+            
+            if (localStorage.getItem('user')) {
+                localStorage.setItem('user', JSON.stringify(user));
+            } else {
+                sessionStorage.setItem('user', JSON.stringify(user));
+            }
+            
+            // Remove warning
+            document.querySelector('.session-warning')?.remove();
+            warningShown = false;
+            
+            showNotification('Session extended successfully', 'success');
+        }
+    }
+    
+    // Check every minute
+    setInterval(checkSessionTimeout, 60 * 1000);
+}
+
+// Add custom styles for enhanced UI
+function addLoginPageStyles() {
+    const styles = `
+        /* Enhanced form styles */
+        .input-with-icon.focused i {
+            color: #2563eb;
+        }
+        
+        .auth-form.submitting {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        /* Enhanced validation styles */
+        .enhanced-error {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success-icon, .error-icon {
+            font-size: 1rem;
+        }
+        
+        /* Password strength indicator */
+        .password-strength-indicator {
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .strength-meter {
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        /* Guest checkout option */
+        .guest-checkout {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Session warning */
+        .session-warning {
+            animation: slideInUp 0.3s ease;
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Social login hover effects */
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px) scale(1.1);
+        }
+        
+        /* Remember me checkbox enhancement */
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2563eb;
+        }
+        
+        /* Forgot password link enhancement */
+        .forgot-password a {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .forgot-password a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #2563eb;
+            transition: width 0.3s ease;
+        }
+        
+        .forgot-password a:hover::after {
+            width: 100%;
+        }
+        
+        /* Admin login link */
+        .admin-login-link a {
+            transition: all 0.3s ease;
+        }
+        
+        .admin-login-link a:hover {
+            color: #2563eb;
+            transform: translateX(5px);
+        }
+    `;
+    
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
+}
+
+// Initialize everything when page loads
+function initializeLoginPage() {
+    addLoginPageStyles();
+    initSessionTimeoutWarning();
+    
+    // Add password strength indicator if on registration page
+    if (window.location.pathname.includes('register.html')) {
+        initPasswordStrengthIndicator();
+    }
+}
+
+// Export for testing
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        validateLoginFormEnhanced,
+        updatePasswordStrengthIndicator,
+        initializeLoginPage
+    };
+}
