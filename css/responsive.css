@@ -434,4 +434,304 @@
         font-size: 2.5rem;
     }
     
-   
+    .auth-card {
+        padding: 1rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+    
+    .notification {
+        left: 0.5rem;
+        right: 0.5rem;
+        top: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .main-header,
+    .language-selector,
+    .footer,
+    .mobile-menu-btn,
+    .cart-icon,
+    .social-login,
+    .admin-login-link,
+    .back-to-home {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+    
+    .btn {
+        display: none !important;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem;
+    }
+    
+    .product-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #0000ff;
+        --secondary-color: #008000;
+        --danger-color: #ff0000;
+        --dark-color: #000000;
+        --light-color: #ffffff;
+        --border-color: #000000;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .input-with-icon input {
+        border: 2px solid currentColor;
+    }
+    
+    .notification {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .hero::before,
+    .auth-container::before {
+        animation: none;
+    }
+    
+    .feature:hover,
+    .product-card:hover,
+    .btn:hover,
+    .social-btn:hover {
+        transform: none;
+    }
+    
+    .notification {
+        animation: none;
+    }
+    
+    .modal-content {
+        animation: none;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #60a5fa;
+        --primary-dark: #3b82f6;
+        --secondary-color: #34d399;
+        --secondary-dark: #10b981;
+        --dark-color: #f9fafb;
+        --dark-light: #e5e7eb;
+        --light-color: #111827;
+        --gray-color: #9ca3af;
+        --gray-light: #6b7280;
+        --border-color: #374151;
+    }
+    
+    body {
+        color: var(--dark-color);
+        background-color: var(--light-color);
+    }
+    
+    .main-header {
+        background-color: #1f2937;
+        border-color: var(--border-color);
+    }
+    
+    .logo h1 {
+        color: var(--primary-color);
+    }
+    
+    .tagline {
+        color: var(--gray-color);
+    }
+    
+    .main-nav a {
+        color: var(--dark-color);
+    }
+    
+    .main-nav a:hover {
+        color: var(--primary-color);
+    }
+    
+    .cart-icon {
+        color: var(--dark-color);
+    }
+    
+    .feature {
+        background-color: #1f2937;
+        border-color: var(--border-color);
+    }
+    
+    .feature h3 {
+        color: var(--dark-color);
+    }
+    
+    .feature p {
+        color: var(--gray-color);
+    }
+    
+    .products {
+        background-color: #111827;
+    }
+    
+    .products h2 {
+        color: var(--dark-color);
+    }
+    
+    .product-card {
+        background-color: #1f2937;
+        border-color: var(--border-color);
+    }
+    
+    .product-title {
+        color: var(--dark-color);
+    }
+    
+    .freight-calculator {
+        background-color: #1f2937;
+    }
+    
+    .freight-result {
+        background-color: #374151;
+        border-color: var(--border-color);
+        color: var(--dark-color);
+    }
+    
+    .main-footer {
+        background-color: #030712;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        color: white;
+    }
+    
+    .footer-section ul li a {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .footer-section ul li a:hover {
+        color: white;
+    }
+    
+    .toyib-pay {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .language-selector select {
+        background-color: #1f2937;
+        color: var(--dark-color);
+        border-color: var(--border-color);
+    }
+    
+    .auth-card {
+        background-color: #1f2937;
+        color: var(--dark-color);
+    }
+    
+    .auth-header h2 {
+        color: var(--dark-color);
+    }
+    
+    .auth-header p {
+        color: var(--gray-color);
+    }
+    
+    .input-with-icon input {
+        background-color: #111827;
+        color: var(--dark-color);
+        border-color: var(--border-color);
+    }
+    
+    .input-with-icon input:focus {
+        border-color: var(--primary-color);
+    }
+    
+    .social-btn {
+        background-color: #374151;
+        color: var(--dark-color);
+        border-color: var(--border-color);
+    }
+    
+    .modal-content {
+        background-color: #1f2937;
+        color: var(--dark-color);
+    }
+    
+    .close-modal {
+        color: var(--gray-color);
+    }
+    
+    .close-modal:hover {
+        color: var(--dark-color);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .main-nav a,
+    .social-btn,
+    .action-btn,
+    .toggle-password {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .main-nav ul li a {
+        padding: 1rem 0;
+    }
+    
+    .input-with-icon input {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    .product-card {
+        touch-action: manipulation;
+    }
+    
+    .cart-icon {
+        padding: 0.5rem;
+    }
+}
