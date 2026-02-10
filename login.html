@@ -1,129 +1,710 @@
 <!DOCTYPE html>
-<html lang="en" data-lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Login to your GlobalMart account to access member benefits, track orders, and manage your profile.">
-    <title>Login - GlobalMart</title>
+    <title>Login - GlobalMart | Secure Member Access</title>
+    <meta name="description" content="Login to your GlobalMart account to access exclusive deals, track orders, and enjoy personalized shopping experience. Secure member login with Toyib Pay integration.">
+    <meta name="keywords" content="GlobalMart login, member access, secure login, ecommerce account, Toyib Pay, online shopping Malaysia">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for login page */
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f3f4f6;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            background-color: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .forgot-password a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .remember-me label {
+            font-size: 0.9rem;
+            color: #4b5563;
+            cursor: pointer;
+        }
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e5e7eb;
+        }
+        
+        .auth-divider span {
+            padding: 0 15px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-wrapper">
-            <!-- Language Selector -->
-            <div class="language-selector login-language">
-                <select id="languageSelect">
-                    <option value="en">English</option>
-                    <option value="ms">Bahasa Malaysia</option>
-                </select>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="ms">Bahasa Malaysia</option>
+            <option value="zh">中文</option>
+        </select>
+    </div>
+
+    <!-- Login Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Back to Home -->
+            <div class="back-to-home">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span data-lang="en">Back to Home</span>
+                    <span data-lang="ms" style="display:none">Kembali ke Laman Utama</span>
+                    <span data-lang="zh" style="display:none">返回首页</span>
+                </a>
             </div>
 
+            <!-- Login Header -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <h1>GlobalMart</h1>
+                    <p class="tagline" data-lang="en">Your Global Shopping Partner</p>
+                    <p class="tagline" data-lang="ms" style="display:none">Rakan Membeli-belah Global Anda</p>
+                    <p class="tagline" data-lang="zh" style="display:none">您的全球购物伙伴</p>
+                </div>
+                
+                <h2 data-lang="en">Welcome Back</h2>
+                <h2 data-lang="ms" style="display:none">Selamat Kembali</h2>
+                <h2 data-lang="zh" style="display:none">欢迎回来</h2>
+                
+                <p data-lang="en">Login to access your account and continue shopping</p>
+                <p data-lang="ms" style="display:none">Log masuk untuk mengakses akaun anda dan terus membeli-belah</p>
+                <p data-lang="zh" style="display:none">登录以访问您的账户并继续购物</p>
+            </div>
+            
             <!-- Login Form -->
-            <div class="login-card">
-                <div class="login-header">
-                    <a href="index.html" class="logo-link">
-                        <i class="fas fa-globe-asia"></i>
-                        <span class="logo-text" data-en="GlobalMart" data-ms="GlobalMart"></span>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail" data-lang="en">Email Address</label>
+                    <label for="loginEmail" data-lang="ms" style="display:none">Alamat Emel</label>
+                    <label for="loginEmail" data-lang="zh" style="display:none">电子邮件地址</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="password-header">
+                        <label for="loginPassword" data-lang="en">Password</label>
+                        <label for="loginPassword" data-lang="ms" style="display:none">Kata Laluan</label>
+                        <label for="loginPassword" data-lang="zh" style="display:none">密码</label>
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Remember Me & Forgot Password -->
+                <div class="login-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" data-lang="en">Remember me</label>
+                        <label for="rememberMe" data-lang="ms" style="display:none">Ingat saya</label>
+                        <label for="rememberMe" data-lang="zh" style="display:none">记住我</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                    <span data-lang="en">Login</span>
+                    <span data-lang="ms" style="display:none">Log Masuk</span>
+                    <span data-lang="zh" style="display:none">登录</span>
+                    <span class="spinner" id="loginSpinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+                
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span data-lang="en">Or continue with</span>
+                    <span data-lang="ms" style="display:none">Atau teruskan dengan</span>
+                    <span data-lang="zh" style="display:none">或使用以下方式继续</span>
+                </div>
+                
+                <!-- Social Login Options -->
+                <div class="social-login">
+                    <a href="#" class="social-btn" title="Google">
+                        <i class="fab fa-google"></i>
                     </a>
-                    <h1 data-en="Welcome Back" data-ms="Selamat Kembali"></h1>
-                    <p data-en="Sign in to your account to continue" data-ms="Daftar masuk ke akaun anda untuk teruskan"></p>
+                    <a href="#" class="social-btn" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn" title="Toyib Pay">
+                        <i class="fas fa-credit-card"></i>
+                    </a>
                 </div>
-
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="email" data-en="Email Address" data-ms="Alamat Emel"></label>
-                        <input type="email" id="email" required placeholder="you@example.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" data-en="Password" data-ms="Kata Laluan"></label>
-                        <div class="password-input">
-                            <input type="password" id="password" required 
-                                   data-en="Enter your password" 
-                                   data-ms="Masukkan kata laluan anda">
-                            <button type="button" class="toggle-password" id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-options">
-                        <label class="checkbox">
-                            <input type="checkbox" id="rememberMe">
-                            <span data-en="Remember me" data-ms="Ingat saya"></span>
-                        </label>
-                        <a href="#" class="forgot-link" data-en="Forgot password?" data-ms="Lupa kata laluan?"></a>
-                    </div>
-
-                    <div class="form-group">
-                        <select id="userType" class="form-select">
-                            <option value="member" data-en="Member" data-ms="Ahli"></option>
-                            <option value="admin" data-en="Administrator" data-ms="Pentadbir"></option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn-primary btn-block">
-                        <span data-en="Sign In" data-ms="Daftar Masuk"></span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-
-                    <div class="login-divider">
-                        <span data-en="Or continue with" data-ms="Atau teruskan dengan"></span>
-                    </div>
-
-                    <div class="social-login">
-                        <button type="button" class="social-btn google">
-                            <i class="fab fa-google"></i>
-                            <span data-en="Google" data-ms="Google"></span>
-                        </button>
-                        <button type="button" class="social-btn facebook">
-                            <i class="fab fa-facebook"></i>
-                            <span data-en="Facebook" data-ms="Facebook"></span>
-                        </button>
-                    </div>
-                </form>
-
-                <div class="login-footer">
-                    <p data-en="Don't have an account?" data-ms="Tiada akaun?"></p>
-                    <a href="enrollment.html" class="register-link" data-en="Create free account" data-ms="Buat akaun percuma"></a>
+                
+                <!-- Forgot Password -->
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink" data-lang="en">Forgot your password?</a>
+                    <a href="#" id="forgotPasswordLink" data-lang="ms" style="display:none">Lupa kata laluan anda?</a>
+                    <a href="#" id="forgotPasswordLink" data-lang="zh" style="display:none">忘记密码？</a>
                 </div>
-            </div>
-
-            <!-- Login Info -->
-            <div class="login-info">
-                <h2 data-en="GlobalMart Benefits" data-ms="Kelebihan GlobalMart"></h2>
-                <div class="benefits">
-                    <div class="benefit">
-                        <i class="fas fa-shopping-cart"></i>
-                        <div>
-                            <h3 data-en="Shop Anywhere" data-ms="Beli di Mana-mana"></h3>
-                            <p data-en="Access millions of products from global markets" data-ms="Akses berjuta-juta produk dari pasaran global"></p>
-                        </div>
-                    </div>
-                    <div class="benefit">
-                        <i class="fas fa-shield-alt"></i>
-                        <div>
-                            <h3 data-en="Secure Payments" data-ms="Pembayaran Selamat"></h3>
-                            <p data-en="Safe transactions with ToyibPay protection" data-ms="Transaksi selamat dengan perlindungan ToyibPay"></p>
-                        </div>
-                    </div>
-                    <div class="benefit">
-                        <i class="fas fa-truck"></i>
-                        <div>
-                            <h3 data-en="Fast Delivery" data-ms="Penghantaran Pantas"></h3>
-                            <p data-en="Reliable shipping with real-time tracking" data-ms="Penghantaran boleh dipercayai dengan penjejakan masa nyata"></p>
-                        </div>
-                    </div>
+                
+                <!-- Registration Link -->
+                <div class="auth-footer">
+                    <p data-lang="en">Don't have an account?</p>
+                    <p data-lang="ms" style="display:none">Tiada akaun?</p>
+                    <p data-lang="zh" style="display:none">还没有账户？</p>
+                    <a href="register.html" data-lang="en">Sign up now</a>
+                    <a href="register.html" data-lang="ms" style="display:none">Daftar sekarang</a>
+                    <a href="register.html" data-lang="zh" style="display:none">立即注册</a>
                 </div>
-                <a href="index.html" class="btn-outline btn-block" data-en="Back to Home" data-ms="Kembali ke Laman Utama"></a>
+            </form>
+            
+            <!-- Admin Login Link -->
+            <div class="admin-login-link">
+                <a href="#" id="adminLoginLink" data-lang="en">
+                    <i class="fas fa-user-shield"></i> Admin Login
+                </a>
+                <a href="#" id="adminLoginLink" data-lang="ms" style="display:none">
+                    <i class="fas fa-user-shield"></i> Log Masuk Admin
+                </a>
+                <a href="#" id="adminLoginLink" data-lang="zh" style="display:none">
+                    <i class="fas fa-user-shield"></i> 管理员登录
+                </a>
             </div>
         </div>
     </div>
-
-    <script src="js/auth.js"></script>
+    
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 data-lang="en">Reset Password</h2>
+            <h2 data-lang="ms" style="display:none">Set Semula Kata Laluan</h2>
+            <h2 data-lang="zh" style="display:none">重置密码</h2>
+            
+            <p data-lang="en">Enter your email address and we'll send you a link to reset your password.</p>
+            <p data-lang="ms" style="display:none">Masukkan alamat emel anda dan kami akan hantar pautan untuk menetapkan semula kata laluan anda.</p>
+            <p data-lang="zh" style="display:none">输入您的电子邮件地址，我们将向您发送重置密码的链接。</p>
+            
+            <form id="resetPasswordForm" class="auth-form">
+                <div class="form-group">
+                    <label for="resetEmail" data-lang="en">Email Address</label>
+                    <label for="resetEmail" data-lang="ms" style="display:none">Alamat Emel</label>
+                    <label for="resetEmail" data-lang="zh" style="display:none">电子邮件地址</label>
+                    <input type="email" id="resetEmail" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span data-lang="en">Send Reset Link</span>
+                    <span data-lang="ms" style="display:none">Hantar Pautan</span>
+                    <span data-lang="zh" style="display:none">发送重置链接</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 data-lang="en">Admin Login</h2>
+            <h2 data-lang="ms" style="display:none">Log Masuk Admin</h2>
+            <h2 data-lang="zh" style="display:none">管理员登录</h2>
+            
+            <p data-lang="en">Please enter admin credentials to access the admin panel.</p>
+            <p data-lang="ms" style="display:none">Sila masukkan kelayakan admin untuk mengakses panel admin.</p>
+            <p data-lang="zh" style="display:none">请输入管理员凭据以访问管理面板。</p>
+            
+            <form id="adminLoginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="adminEmail" data-lang="en">Admin Email</label>
+                    <label for="adminEmail" data-lang="ms" style="display:none">Emel Admin</label>
+                    <label for="adminEmail" data-lang="zh" style="display:none">管理员电子邮件</label>
+                    <input type="email" id="adminEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminPassword" data-lang="en">Admin Password</label>
+                    <label for="adminPassword" data-lang="ms" style="display:none">Kata Laluan Admin</label>
+                    <label for="adminPassword" data-lang="zh" style="display:none">管理员密码</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adminCode" data-lang="en">Security Code (Optional)</label>
+                    <label for="adminCode" data-lang="ms" style="display:none">Kod Keselamatan (Pilihan)</label>
+                    <label for="adminCode" data-lang="zh" style="display:none">安全代码（可选）</label>
+                    <input type="text" id="adminCode" placeholder="Enter if required">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span data-lang="en">Login as Admin</span>
+                    <span data-lang="ms" style="display:none">Log Masuk sebagai Admin</span>
+                    <span data-lang="zh" style="display:none">以管理员身份登录</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
     <script src="js/language.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Initialize login page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password toggle functionality
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('loginPassword');
+            
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                });
+            }
+            
+            // Forgot password modal
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+            const closeForgotModal = forgotPasswordModal?.querySelector('.close-modal');
+            
+            if (forgotPasswordLink && forgotPasswordModal) {
+                forgotPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    forgotPasswordModal.style.display = 'flex';
+                });
+                
+                closeForgotModal?.addEventListener('click', function() {
+                    forgotPasswordModal.style.display = 'none';
+                });
+                
+                // Close modal when clicking outside
+                window.addEventListener('click', function(e) {
+                    if (e.target === forgotPasswordModal) {
+                        forgotPasswordModal.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Admin login modal
+            const adminLoginLink = document.getElementById('adminLoginLink');
+            const adminLoginModal = document.getElementById('adminLoginModal');
+            const closeAdminModal = adminLoginModal?.querySelector('.close-modal');
+            
+            if (adminLoginLink && adminLoginModal) {
+                adminLoginLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    adminLoginModal.style.display = 'flex';
+                });
+                
+                closeAdminModal?.addEventListener('click', function() {
+                    adminLoginModal.style.display = 'none';
+                });
+                
+                // Close modal when clicking outside
+                window.addEventListener('click', function(e) {
+                    if (e.target === adminLoginModal) {
+                        adminLoginModal.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Reset password form submission
+            const resetPasswordForm = document.getElementById('resetPasswordForm');
+            if (resetPasswordForm) {
+                resetPasswordForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('resetEmail').value;
+                    
+                    if (email) {
+                        // Simulate sending reset link
+                        setTimeout(() => {
+                            alert('Password reset link has been sent to your email!');
+                            forgotPasswordModal.style.display = 'none';
+                            resetPasswordForm.reset();
+                        }, 1000);
+                        
+                        // Log the action
+                        logToSheet('PASSWORD_RESET_REQUEST', `Password reset requested for: ${email}`);
+                    }
+                });
+            }
+            
+            // Admin login form submission
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const adminEmail = document.getElementById('adminEmail').value;
+                    const adminPassword = document.getElementById('adminPassword').value;
+                    
+                    // Simple admin validation (in production, use proper authentication)
+                    if (adminEmail === 'admin@globalmart.com' && adminPassword === 'admin123') {
+                        // Create admin session
+                        const adminSession = {
+                            id: 'admin001',
+                            email: adminEmail,
+                            fullName: 'GlobalMart Admin',
+                            role: 'admin',
+                            lastLogin: new Date().toISOString()
+                        };
+                        
+                        localStorage.setItem('user', JSON.stringify(adminSession));
+                        
+                        // Show success message
+                        showNotification('Admin login successful! Redirecting...', 'success');
+                        
+                        // Redirect to admin page
+                        setTimeout(() => {
+                            window.location.href = 'admin.html';
+                        }, 1500);
+                        
+                        // Log the action
+                        logToSheet('ADMIN_LOGIN', `Admin logged in: ${adminEmail}`);
+                        
+                    } else {
+                        showNotification('Invalid admin credentials', 'error');
+                    }
+                });
+            }
+            
+            // Check if user is already logged in
+            checkAuthStatus();
+            
+            // Add styles for input with icon
+            const style = document.createElement('style');
+            style.textContent = `
+                .back-to-home {
+                    margin-bottom: 20px;
+                }
+                
+                .back-link {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: #6b7280;
+                    text-decoration: none;
+                    font-size: 0.9rem;
+                    transition: color 0.3s ease;
+                }
+                
+                .back-link:hover {
+                    color: #2563eb;
+                }
+                
+                .auth-logo {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                
+                .auth-logo h1 {
+                    color: #2563eb;
+                    font-size: 2rem;
+                    margin-bottom: 5px;
+                }
+                
+                .auth-logo .tagline {
+                    color: #6b7280;
+                    font-size: 0.9rem;
+                }
+                
+                .input-with-icon {
+                    position: relative;
+                }
+                
+                .input-with-icon i {
+                    position: absolute;
+                    left: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #9ca3af;
+                }
+                
+                .input-with-icon input {
+                    width: 100%;
+                    padding: 12px 12px 12px 45px;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                }
+                
+                .input-with-icon input:focus {
+                    outline: none;
+                    border-color: #2563eb;
+                    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+                }
+                
+                .toggle-password {
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: none;
+                    border: none;
+                    color: #9ca3af;
+                    cursor: pointer;
+                    padding: 0;
+                    font-size: 1rem;
+                }
+                
+                .toggle-password:hover {
+                    color: #6b7280;
+                }
+                
+                .password-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+                
+                .admin-login-link {
+                    margin-top: 30px;
+                    text-align: center;
+                    padding-top: 20px;
+                    border-top: 1px solid #e5e7eb;
+                }
+                
+                .admin-login-link a {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: #374151;
+                    text-decoration: none;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    transition: color 0.3s ease;
+                }
+                
+                .admin-login-link a:hover {
+                    color: #2563eb;
+                }
+                
+                .spinner {
+                    margin-left: 10px;
+                }
+                
+                .btn-primary:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
+                }
+                
+                /* Modal styles */
+                .modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 1000;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                }
+                
+                .modal-content {
+                    background-color: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    width: 100%;
+                    max-width: 400px;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                    animation: modalSlideIn 0.3s ease;
+                }
+                
+                @keyframes modalSlideIn {
+                    from {
+                        transform: translateY(-50px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+                
+                .close-modal {
+                    float: right;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: #6b7280;
+                    line-height: 1;
+                }
+                
+                .close-modal:hover {
+                    color: #374151;
+                }
+                
+                .modal h2 {
+                    margin-bottom: 15px;
+                    color: #1f2937;
+                }
+                
+                .modal p {
+                    color: #6b7280;
+                    margin-bottom: 20px;
+                    font-size: 0.95rem;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            const bgColor = type === 'error' ? '#ef4444' : 
+                            type === 'success' ? '#10b981' : '#3b82f6';
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: ${bgColor};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 6px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Add animation styles if not already present
+            if (!document.getElementById('notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        // Check if user is already logged in
+        function checkAuthStatus() {
+            const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user'));
+            
+            if (user) {
+                // User is already logged in, redirect to home
+                showNotification('You are already logged in!', 'info');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        }
+        
+        // Google Sheets logging function
+        async function logToSheet(action, message, userId = 'guest') {
+            try {
+                const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // Replace with your web app URL
+                
+                const logData = {
+                    action: action,
+                    message: message,
+                    userId: userId,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    page: 'login.html'
+                };
+                
+                const response = await fetch(SHEET_URL + '/log', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(logData)
+                });
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error logging to sheet:', error);
+            }
+        }
+    </script>
 </body>
 </html>
