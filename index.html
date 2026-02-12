@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="description" content="Global Marketplace - Your One-Stop E-commerce Platform for Online and Offline Shopping. Best prices on electronics, fashion, home & living, and more with local & international delivery.">
+    <meta name="keywords" content="ecommerce, online shopping, marketplace, buy online, international delivery, Malaysia marketplace, global shopping">
+    <meta name="author" content="Global Marketplace">
+    <meta property="og:title" content="Global Marketplace - Shop All Categories">
+    <meta property="og:description" content="Your One-Stop Destination for Online & Offline Shopping">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <title>Global Marketplace | Online & Offline Shopping | Malaysia's Premier E-commerce</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Global<span>Market</span></h1>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <select id="languageSelect" aria-label="Select Language">
+                    <option value="en">English</option>
+                    <option value="ms">Bahasa Malaysia</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html" class="active" data-i18n="home">Home</a>
+                <a href="#categories" data-i18n="categories">Categories</a>
+                <a href="#products" data-i18n="products">Products</a>
+                <a href="freight.html" data-i18n="freight">Freight</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </a>
+                <a href="login.html" class="btn-login" data-i18n="login">Login</a>
+                <a href="register.html" class="btn-register" data-i18n="register">Register</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="hero_title">Shop Global, Save Local</h2>
+            <p data-i18n="hero_desc">Discover millions of products with international shipping and local delivery</p>
+            <a href="#products" class="btn-primary" data-i18n="shop_now">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <h2 class="section-title" data-i18n="categories_title">Shop by Categories</h2>
+        <div class="category-grid" id="categoryGrid">
+            <!-- Categories loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="products">
+        <h2 class="section-title" data-i18n="featured_products">Featured Products</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Products loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Freight Module Preview -->
+    <section class="freight-module">
+        <div class="freight-container">
+            <h3 data-i18n="freight_calculator">Freight Calculator</h3>
+            <div class="freight-form">
+                <select id="freightType">
+                    <option value="local" data-i18n="local_delivery">Local Delivery</option>
+                    <option value="international" data-i18n="international_delivery">International Delivery</option>
+                </select>
+                <input type="text" id="freightWeight" placeholder="Weight (kg)">
+                <button id="calculateFreight" class="btn-secondary" data-i18n="calculate">Calculate</button>
+            </div>
+            <div id="freightResult"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-truck"></i>
+            <h4 data-i18n="free_shipping">Free Shipping</h4>
+            <p data-i18n="free_shipping_desc">On orders over RM100</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h4 data-i18n="secure_payment">Secure Payment</h4>
+            <p data-i18n="secure_payment_desc">100% secure transactions</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-undo"></i>
+            <h4 data-i18n="free_returns">Free Returns</h4>
+            <p data-i18n="free_returns_desc">30-day return policy</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 data-i18n="about_us">About Us</h4>
+                <p data-i18n="about_text">Global Marketplace is your premier destination for online and offline shopping, connecting buyers and sellers worldwide.</p>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="quick_links">Quick Links</h4>
+                <ul>
+                    <li><a href="#categories" data-i18n="categories">Categories</a></li>
+                    <li><a href="#products" data-i18n="products">Products</a></li>
+                    <li><a href="freight.html" data-i18n="freight">Freight</a></li>
+                    <li><a href="#" data-i18n="contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="payment_methods">Payment Methods</h4>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fas fa-credit-card"></i>
+                    <span class="toyib-pay">Toyib Pay</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Global Marketplace. <span data-i18n="all_rights">All rights reserved.</span></p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

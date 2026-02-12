@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freight Services - Global Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .freight-page {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .freight-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .freight-calculator {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .freight-rates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .rate-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .rate-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .rate-card .price {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .tracking-section {
+            background: var(--light-bg);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+        }
+        
+        .tracking-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto 0;
+        }
+        
+        .tracking-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .international-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .zone-item {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .freight-hero {
+                padding: 2rem;
+            }
+            
+            .tracking-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Global<span>Market</span></h1>
+            </div>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="ms">Bahasa Malaysia</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="index.html#products">Products</a>
+                <a href="freight.html" class="active">Freight</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </a>
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="freight-page">
+        <div class="freight-hero">
+            <h1 data-i18n="freight_services">Freight & Shipping Services</h1>
+            <p data-i18n="freight_hero_desc">Fast, reliable, and affordable shipping solutions for local and international deliveries</p>
+        </div>
+
+        <div class="freight-calculator">
+            <h2 data-i18n="freight_calculator">Freight Calculator</h2>
+            <div class="freight-form" style="margin-top: 2rem;">
+                <select id="freightType">
+                    <option value="local" data-i18n="local_delivery">Local Delivery (Malaysia)</option>
+                    <option value="international" data-i18n="international_delivery">International Delivery</option>
+                </select>
+                
+                <select id="internationalZone" style="display: none;">
+                    <option value="asia">Asia</option>
+                    <option value="europe">Europe</option>
+                    <option value="america">North/South America</option>
+                    <option value="others">Other Regions</option>
+                </select>
+                
+                <input type="number" id="freightWeight" placeholder="Weight (kg)" step="0.1" min="0.1">
+                <input type="text" id="freightDimensions" placeholder="Dimensions (LxWxH cm)" style="display: none;">
+                
+                <button id="calculateFreightBtn" class="btn-primary" data-i18n="calculate">Calculate</button>
+            </div>
+            
+            <div id="freightResult" style="margin-top: 2rem; padding: 1rem; background: var(--light-bg); border-radius: 4px;"></div>
+        </div>
+
+        <div class="freight-rates">
+            <div class="rate-card">
+                <i class="fas fa-truck" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                <h3 data-i18n="local_delivery">Local Delivery</h3>
+                <div class="price">RM 10 - 50</div>
+                <p data-i18n="local_delivery_desc">1-3 business days, tracking included, insurance available</p>
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li>✓ Base rate: RM 10</li>
+                    <li>✓ RM 2/kg</li>
+                    <li>✓ Free shipping over RM 100</li>
+                </ul>
+            </div>
+            
+            <div class="rate-card">
+                <i class="fas fa-plane" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                <h3 data-i18n="international_delivery">International Delivery</h3>
+                <div class="price">RM 50 - 500</div>
+                <p data-i18n="international_delivery_desc">3-7 business days, customs clearance, full tracking</p>
+                <div class="international-zones" style="margin-top: 1rem;">
+                    <div class="zone-item">
+                        <strong>Asia</strong><br>
+                        RM 60 + RM 12/kg
+                    </div>
+                    <div class="zone-item">
+                        <strong>Europe</strong><br>
+                        RM 75 + RM 15/kg
+                    </div>
+                    <div class="zone-item">
+                        <strong>America</strong><br>
+                        RM 90 + RM 18/kg
+                    </div>
+                    <div class="zone-item">
+                        <strong>Others</strong><br>
+                        RM 100 + RM 20/kg
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rate-card">
+                <i class="fas fa-box" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                <h3 data-i18n="freight_insurance">Freight Insurance</h3>
+                <div class="price">2.5%</div>
+                <p data-i18n="insurance_desc">Protect your shipment against loss or damage</p>
+                <ul style="list-style: none; margin-top: 1rem;">
+                    <li>✓ Full coverage</li>
+                    <li>✓ Easy claims process</li>
+                    <li>✓ 24/7 support</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tracking-section">
+            <h2 data-i18n="track_shipment">Track Your Shipment</h2>
+            <p data-i18n="track_desc">Enter your tracking number to get real-time updates</p>
+            
+            <div class="tracking-form">
+                <input type="text" id="trackingNumber" placeholder="Enter tracking number">
+                <button class="btn-secondary" onclick="trackShipment()" data-i18n="track">Track</button>
+            </div>
+            
+            <div id="trackingResult" style="margin-top: 2rem;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 data-i18n="freight_services">Freight Services</h4>
+                <ul>
+                    <li><a href="#" data-i18n="local_delivery">Local Delivery</a></li>
+                    <li><a href="#" data-i18n="international_delivery">International Delivery</a></li>
+                    <li><a href="#" data-i18n="freight_insurance">Freight Insurance</a></li>
+                    <li><a href="#" data-i18n="warehousing">Warehousing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="support">Support</h4>
+                <ul>
+                    <li><a href="#" data-i18n="faq">FAQ</a></li>
+                    <li><a href="#" data-i18n="shipping_policy">Shipping Policy</a></li>
+                    <li><a href="#" data-i18n="returns">Returns</a></li>
+                    <li><a href="#" data-i18n="contact_us">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="contact">Contact</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +603 1234 5678</li>
+                    <li><i class="fas fa-envelope"></i> freight@globalmarket.com</li>
+                    <li><i class="fas fa-map-marker"></i> Kuala Lumpur, Malaysia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Global Marketplace. <span data-i18n="all_rights">All rights reserved.</span></p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="freight.js"></script>
+</body>
+</html>
