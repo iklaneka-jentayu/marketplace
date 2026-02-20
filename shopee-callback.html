@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee Authorization Callback</title>
+</head>
+<body>
+    <script>
+        // Extract parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const shopId = urlParams.get('shop_id');
+        const error = urlParams.get('error');
+        
+        // Send message to opener window
+        if (window.opener) {
+            if (error) {
+                window.opener.postMessage({
+                    type: 'shopee_auth_error',
+                    error: error
+                }, '*');
+            } else {
+                window.opener.postMessage({
+                    type: 'shopee_auth',
+                    code: code,
+                    shop_id: shopId
+                }, '*');
+            }
+            
+            // Close this window
+            setTimeout(() => {
+                window.close();
+            }, 1000);
+        } else {
+            document.body.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h2>Authorization Complete</h2>
+                    <p>You can close this window and return to the admin panel.</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
