@@ -255,8 +255,265 @@
             </form>
         </div>
     </div>
+              <!-- Shopee Integration Header -->
+            <div class="integration-header">
+                <h1>
+                    <i class="fas fa-store text-blue-600"></i>
+                    Shopee Integration
+                </h1>
+                <div class="integration-status" id="integrationStatus">
+                    <span class="status-badge disconnected">Not Connected</span>
+                </div>
+            </div>
+            
+            <!-- Connection Panel -->
+            <section class="connection-panel admin-section">
+                <h2>Connect Your Shopee Account</h2>
+                
+                <div class="connection-status" id="connectionStatus">
+                    <!-- Status will be updated by JS -->
+                </div>
+                
+                <div class="connection-actions">
+                    <button id="connectShopeeBtn" class="btn btn-primary">
+                        <i class="fas fa-plug"></i> Connect Shopee
+                    </button>
+                    <button id="disconnectShopeeBtn" class="btn btn-danger" style="display:none;">
+                        <i class="fas fa-unlink"></i> Disconnect
+                    </button>
+                    <button id="refreshTokenBtn" class="btn btn-secondary" style="display:none;">
+                        <i class="fas fa-sync"></i> Refresh Token
+                    </button>
+                </div>
+                
+                <div class="shop-info" id="shopInfo" style="display:none;">
+                    <h3>Connected Shop Details</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Shop Name:</label>
+                            <span id="shopName"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Shop ID:</label>
+                            <span id="shopId"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Country:</label>
+                            <span id="shopCountry"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Status:</label>
+                            <span id="shopStatus"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Products:</label>
+                            <span id="shopProducts"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>Last Sync:</label>
+                            <span id="lastSync"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Import Products Panel -->
+            <section class="import-panel admin-section">
+                <h2>Import Shopee Products</h2>
+                
+                <div class="import-controls">
+                    <div class="form-group">
+                        <label>Select Import Method</label>
+                        <select id="importMethod">
+                            <option value="all">Import All Products</option>
+                            <option value="category">Import by Category</option>
+                            <option value="search">Search and Import</option>
+                            <option value="update">Update Existing Products</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="categorySelector" style="display:none;">
+                        <label>Select Category</label>
+                        <select id="shopeeCategory">
+                            <option value="">Loading categories...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="searchInput" style="display:none;">
+                        <label>Search Products</label>
+                        <input type="text" id="searchKeyword" placeholder="Enter keyword...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Import Options</label>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="importImages" checked>
+                                Import product images
+                            </label>
+                            <label>
+                                <input type="checkbox" id="importVariants" checked>
+                                Import product variants
+                            </label>
+                            <label>
+                                <input type="checkbox" id="overwriteExisting">
+                                Overwrite existing products
+                            </label>
+                            <label>
+                                <input type="checkbox" id="autoSync" checked>
+                                Enable auto-sync (every 30 minutes)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="import-actions">
+                        <button id="importProductsBtn" class="btn btn-primary" disabled>
+                            <i class="fas fa-download"></i> Import Products
+                        </button>
+                        <button id="previewProductsBtn" class="btn btn-secondary" disabled>
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button id="cancelImportBtn" class="btn btn-outline" style="display:none;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="import-progress" id="importProgress" style="display:none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span id="progressStatus">Importing...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Product Preview Panel -->
+            <section class="preview-panel admin-section" id="previewPanel" style="display:none;">
+                <div class="preview-header">
+                    <h2>Products to Import</h2>
+                    <div class="preview-actions">
+                        <button id="selectAllBtn" class="btn btn-sm btn-outline">Select All</button>
+                        <button id="deselectAllBtn" class="btn btn-sm btn-outline">Deselect All</button>
+                    </div>
+                </div>
+                
+                <div class="preview-count">
+                    <span id="selectedCount">0</span> of <span id="totalCount">0</span> products selected
+                </div>
+                
+                <div class="preview-grid" id="productPreview">
+                    <!-- Product preview cards will be loaded here -->
+                </div>
+                
+                <div class="preview-footer">
+                    <button id="confirmImportBtn" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Confirm Import
+                    </button>
+                    <button id="cancelPreviewBtn" class="btn btn-outline">
+                        Cancel
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Imported Products List -->
+            <section class="imported-products admin-section">
+                <div class="section-header">
+                    <h2>Imported Shopee Products</h2>
+                    <div class="header-actions">
+                        <button id="refreshListBtn" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <button id="syncAllBtn" class="btn btn-sm btn-primary">
+                            <i class="fas fa-sync-alt"></i> Sync All
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-bar">
+                    <input type="text" id="filterProducts" placeholder="Filter products...">
+                    <select id="filterCategory">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
+                </div>
+                
+                <div class="admin-table-container">
+                    <table class="admin-table" id="importedProductsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Shopee ID</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="pagination-btn prev" disabled>Previous</button>
+                    <span class="page-info">Page 1 of 1</span>
+                    <button class="pagination-btn next" disabled>Next</button>
+                </div>
+            </section>
+            
+            <!-- Sync Logs -->
+            <section class="sync-logs admin-section">
+                <h2>Sync History</h2>
+                <div class="admin-table-container">
+                    <table class="admin-table" id="syncLogsTable">
+                        <thead>
+                            <tr>
+                                <th>Date/Time</th>
+                                <th>Action</th>
+                                <th>Products</th>
+                                <th>Status</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sync logs will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
     
+    <!-- Import Confirmation Modal -->
+    <div id="importConfirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Confirm Import</h2>
+            <p id="importConfirmMessage"></p>
+            <div class="modal-actions">
+                <button id="confirmImportModalBtn" class="btn btn-primary">Confirm</button>
+                <button id="cancelImportModalBtn" class="btn btn-outline">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/shopee-config.js"></script>
+    <script src="js/shopee-api.js"></script>
+    <script src="js/shopee-admin.js"></script>
     <script src="config.js"></script>
     <script src="admin.js"></script>
 </body>
+
 </html>
